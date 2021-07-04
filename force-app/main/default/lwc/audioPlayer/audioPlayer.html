@@ -1,0 +1,52 @@
+<template>
+    <lightning-card title="Audio">
+        <div class="slds-var-m-around_medium">
+            <template if:true={audioContentDocumentId}>
+                <div class="slds-var-m-bottom_medium" if:true={contentRecord}>
+                    <p>Title: {fileTitle}.{fileExtension} ({fileType})</p>
+                    <p if:true={fileDescription}>{fileDescription}</p>
+                </div>
+                <audio
+                    onplay={handleOnPlay}
+                    onseeked={handleOnSeeked}
+                    onseeking={handleOnSeeking}
+                    onpause={handleOnPause}
+                    ontimeupdate={handleOnTimeUpdate}
+                >
+                    <source src={audioSrc} type="audio/mp3" />
+                </audio>
+                <div class="slds-var-m-bottom_small">
+                    <div class="slds-text-align_center" if:true={audioElement}>
+                        {currentTimeFormatted} ~ {totalTimeFormatted}
+                    </div>
+                    <lightning-progress-bar
+                        value={currentTimePercentage}
+                        size="small"
+                    ></lightning-progress-bar>
+                </div>
+                <div>
+                    <lightning-button-group>
+                        <lightning-button-icon
+                            icon-name="utility:skip_back"
+                            alternative-text="Skip Back"
+                            title="Skip Back"
+                            onclick={handleSkipBack}
+                        ></lightning-button-icon>
+                        <lightning-button-icon
+                            icon-name={playPauseIcon}
+                            alternative-text={playPauseAltText}
+                            title={playPauseAltText}
+                            onclick={handlePlayPause}
+                        ></lightning-button-icon>
+                        <lightning-button-icon
+                            icon-name="utility:skip_forward"
+                            alternative-text="Skip Forward"
+                            title="Skip Forward"
+                            onclick={handleSkipForward}
+                        ></lightning-button-icon>
+                    </lightning-button-group>
+                </div>
+            </template>
+        </div>
+    </lightning-card>
+</template>
